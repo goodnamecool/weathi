@@ -66,6 +66,7 @@
     <Compile Include="APIService.cs" />
     <Compile Include="Weather.cs" />
     <Compile Include="Forecast.cs" />
+    <Compile Include="ForecastItemAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -85,7 +86,14 @@
     <AndroidResource Include="Resources\values\style.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\strings.xml" />
+    <AndroidResource Include="Resources\layout\ForecastItem.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Assets\Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Fonts\Genome-Thin.otf" />
+  </ItemGroup>
 </Project>

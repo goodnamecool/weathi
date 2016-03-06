@@ -27,16 +27,12 @@ namespace Weathi
 		        var content = await response.Content.ReadAsStringAsync();
 		        return FillWeather(JObject.Parse(content));
 		    }
-		    else
-		    {
-		        return null;
-		    }
+
+		    return null;
 		}
 
 		private static Weather FillWeather(JObject json)
 		{
-			var weather = new Weather ();
-
 			var forecastList = json["query"]["results"]["channel"]["item"]["forecast"].ToList();
 
 			var location = json["query"]["results"]["channel"]["location"];
@@ -45,40 +41,38 @@ namespace Weathi
 			var wind = json["query"]["results"]["channel"]["wind"];
 			var astronomy = json["query"]["results"]["channel"]["astronomy"];
 
-			weather.AstronomySunrise = astronomy["sunrise"].ToString();
-			weather.AstronomySunset = astronomy["sunset"].ToString();
+		    var weather = new Weather
+		    {
+		        AstronomySunrise = astronomy["sunrise"].ToString(),
+		        AstronomySunset = astronomy["sunset"].ToString(),
+		        WindChill = wind["chill"].ToString(),
+		        WindDirection = wind["direction"].ToString(),
+		        WindSpeed = wind["speed"].ToString(),
+		        LocationCity = location["city"].ToString(),
+		        LocationRegion = location["region"].ToString(),
+		        LocationCountry = location["country"].ToString(),
+		        ConditionCode = condition["code"].ToString(),
+		        ConditionDate = condition["date"].ToString(),
+		        ConditionTemperature = condition["temp"].ToString(),
+		        ConditionText = condition["text"].ToString(),
+		        AtmosphereHumidity = atmosphere["humidity"].ToString(),
+		        AtmospherePressure = atmosphere["pressure"].ToString(),
+		        AtmosphereRising = atmosphere["rising"].ToString(),
+		        AtmosphereVisibility = atmosphere["visibility"].ToString(),
+		        Forecast = new List<Forecast>()
+		    };
 
-			weather.WindChill = wind["chill"].ToString();
-			weather.WindDirection = wind["direction"].ToString();
-			weather.WindSpeed = wind["speed"].ToString();
-
-			weather.LocationCity = location["city"].ToString();
-			weather.LocationRegion = location["region"].ToString();
-			weather.LocationCountry = location["country"].ToString();
-
-			weather.ConditionCode = condition["code"].ToString();
-			weather.ConditionDate = condition["date"].ToString();
-			weather.ConditionTemperature = condition["temp"].ToString();
-			weather.ConditionText = condition["text"].ToString();
-
-			weather.AtmosphereHumidity = atmosphere["humidity"].ToString();
-			weather.AtmospherePressure = atmosphere["pressure"].ToString();
-			weather.AtmosphereRising = atmosphere["rising"].ToString();
-			weather.AtmosphereVisibility = atmosphere["visibility"].ToString();
-
-			weather.Forescast = new List<Forecast>();
-
-			foreach (var item in forecastList)
+		    foreach (var item in forecastList)
 			{
-				weather.Forescast.Add(new Forecast()
-					{
-						Code = item["code"].ToString(),
-						Date = item["date"].ToString() ,
-						Day = item["day"].ToString(),
-						High = item["high"].ToString(),
-						Low = item["low"].ToString(),
-						Text = item["text"].ToString()
-					});
+				weather.Forecast.Add(new Forecast()
+				{
+					Code = item["code"].ToString(),
+					Date = item["date"].ToString() ,
+					Day = item["day"].ToString(),
+					High = item["high"].ToString(),
+					Low = item["low"].ToString(),
+					Text = item["text"].ToString()
+				});
 			}
 
 			return weather;

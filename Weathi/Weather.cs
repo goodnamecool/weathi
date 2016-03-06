@@ -20,6 +20,6 @@ namespace Weathi
         public string WindChill { get; set; }
         public string WindDirection { get; set; }
         public string WindSpeed { get; set; }
-        public List<Forecast> Forescast { get; set; } 
+        public List<Forecast> Forecast { get; set; } 
     }    
 }
