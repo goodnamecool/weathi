@@ -9,12 +9,13 @@ namespace Weathi
 	[Activity (Label = "@string/ApplicationName" , Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
 	public class MainActivity : Activity
 	{
-		protected override void OnCreate(Bundle bundle)
+		protected override async void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.Main);
 
-		    var objeto = new APIService().GetForecastDaily().Result;
+			var apiService = new ApiService ();
+			var weather = await apiService.GetForecastDaily();
 
 		}
 	}
