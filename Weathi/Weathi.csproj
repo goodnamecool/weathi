@@ -87,6 +87,11 @@
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\strings.xml" />
     <AndroidResource Include="Resources\layout\ForecastItem.xml" />
+    <AndroidResource Include="Resources\drawable\humidity.png" />
+    <AndroidResource Include="Resources\drawable\visibility.png" />
+    <AndroidResource Include="Resources\drawable\pressure.png" />
+    <AndroidResource Include="Resources\drawable\sunrise.png" />
+    <AndroidResource Include="Resources\drawable\sunset.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

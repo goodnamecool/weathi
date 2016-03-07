@@ -11,8 +11,16 @@ namespace Weathi
 	public class MainActivity : Activity
 	{
 		TextView locationText;
+		TextView currentTemperatureText;
 		TextView currentConditionText;
+		TextView sunriseText;
+		TextView sunsetText;
+		TextView humidityText;
+		TextView pressureText;
+		TextView visibilityText;
+
 		ListView listView;
+
 		Weather weather = new Weather();
 
 		protected override async void OnCreate(Bundle bundle)
@@ -24,15 +32,34 @@ namespace Weathi
 			weather = await apiService.GetForecastDaily();
 
 			locationText = FindViewById<TextView> (Resource.Id.txtLocation);
-			currentConditionText = FindViewById<TextView> (Resource.Id.txtCondition);
+			currentTemperatureText = FindViewById<TextView> (Resource.Id.txtCondition);
+			currentConditionText = FindViewById<TextView> (Resource.Id.txtText);
+			sunriseText = FindViewById<TextView> (Resource.Id.textSunrise);
+			sunsetText = FindViewById<TextView> (Resource.Id.textSunset);
+			humidityText = FindViewById<TextView> (Resource.Id.textHumidity);
+			pressureText = FindViewById<TextView> (Resource.Id.textPressure);
+			visibilityText = FindViewById<TextView> (Resource.Id.textVisibility);
+
 			listView = FindViewById<ListView>(Resource.Id.List);
 
 			locationText.Text = weather.LocationCity + ", " + weather.LocationRegion;
-			currentConditionText.Text = weather.ConditionTemperature + "c";
+			currentTemperatureText.Text = weather.ConditionTemperature + "c";
+			currentConditionText.Text = weather.ConditionText;
+			sunriseText.Text = weather.AstronomySunrise;
+			sunsetText.Text = weather.AstronomySunset;
+			humidityText.Text = weather.AtmosphereHumidity + "%";
+			pressureText.Text = weather.AtmospherePressure + "mb";
+			visibilityText.Text = weather.AtmosphereVisibility + "km" ;
 
 			Typeface tf = Typeface.CreateFromAsset(Assets,"Fonts/Genome-Thin.otf"); 
 			locationText.Typeface = tf;
 			currentConditionText.Typeface = tf;
+			currentTemperatureText.Typeface = tf;
+			sunriseText.Typeface = tf;
+			sunsetText.Typeface = tf;
+			humidityText.Typeface = tf;
+			pressureText.Typeface = tf;
+			visibilityText.Typeface = tf;
 
 			listView.Adapter = new ForecastItemAdapter(this, weather.Forecast);
 

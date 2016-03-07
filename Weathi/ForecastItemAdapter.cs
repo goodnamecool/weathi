@@ -8,6 +8,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Graphics;
+
 
 namespace Weathi
 {
@@ -49,6 +51,7 @@ namespace Weathi
 			view.FindViewById<TextView>(Resource.Id.txtHigh).Text = item.High;
 			view.FindViewById<TextView>(Resource.Id.txtLow).Text = item.Low;
 			view.FindViewById<ImageView>(Resource.Id.Image).SetImageResource(item.ResourceID);
+
 			return view;
 		}
 	}

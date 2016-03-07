@@ -12,6 +12,12 @@
         android:layout_gravity="center_horizontal"
         android:paddingTop="15dp" />
     <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtText"
+        android:layout_gravity="center_horizontal" />
+    <TextView
         android:text="CCº"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,11 +25,120 @@
         android:gravity="center_horizontal"
         android:textSize="170dp"
         android:textStyle="normal"
-        android:paddingTop="32dp" />
+        android:paddingTop="10dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="center_horizontal">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <ImageView
+                android:id="@+id/ImgHumidity"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/humidity"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textHumidity"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <ImageView
+                android:id="@+id/ImgPressure"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/pressure"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textPressure"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <ImageView
+                android:id="@+id/ImgVisibility"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/visibility"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textVisibility"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="center_horizontal">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <ImageView
+                android:id="@+id/ImgSunrise"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/sunrise"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textSunrise"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <ImageView
+                android:id="@+id/ImgSunset"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/sunset"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textSunset"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
     <ListView
         android:id="@+id/List"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" />
 </LinearLayout>
