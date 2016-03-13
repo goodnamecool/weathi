@@ -7,7 +7,7 @@ using Android.Util;
 
 namespace Weathi
 {
-	[Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]	
+	[Activity(Theme = "@style/MyTheme.Splash", NoHistory = true)]	
 	public class SplashActivity : Activity
 	{
 		protected override void OnCreate(Bundle savedInstanceState)
