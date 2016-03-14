@@ -18,7 +18,7 @@ namespace Weathi
         public string AstronomySunrise { get; set; }
         public string AstronomySunset { get; set; }
         public string WindChill { get; set; }
-        public string WindDirection { get; set; }
+        public int WindDirection { get; set; }
         public string WindSpeed { get; set; }
 		public string Altitude { get; set; }
         public List<Forecast> Forecast { get; set; } 

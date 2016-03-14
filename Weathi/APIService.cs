@@ -16,19 +16,26 @@ namespace Weathi
 		    client = new HttpClient { MaxResponseContentBufferSize = 256000 };
 		}
 
-		public async Task<Weather> GetForecastDaily(string unit)
+		public async Task<Weather> GetForecastDaily(string city, string unit)
 		{
-		    var url = new Uri("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22Zapopan%22%20)%20and%20u%3D'" + unit  + "'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
+			var url = new Uri("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%22%20)%20and%20u%3D'" + unit  + "'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
 
-		    var response = await client.GetAsync(url);
+			try 
+			{
+				var response = await client.GetAsync(url);
 
-		    if (response.IsSuccessStatusCode) 
-		    {
-		        var content = await response.Content.ReadAsStringAsync();
-		        return FillWeather(JObject.Parse(content));
-		    }
+				if (response.IsSuccessStatusCode) 
+				{
+					var content = await response.Content.ReadAsStringAsync();
+					return FillWeather(JObject.Parse(content));
+				}
+			} 
+			catch (Exception) 
+			{
+				
+			}
 
-		    return null;
+			return null;
 		}
 
 		private static Weather FillWeather(JObject json)
@@ -46,7 +53,7 @@ namespace Weathi
 		        AstronomySunrise = astronomy["sunrise"].ToString(),
 		        AstronomySunset = astronomy["sunset"].ToString(),
 		        WindChill = wind["chill"].ToString(),
-		        WindDirection = wind["direction"].ToString(),
+				WindDirection = int.Parse(wind["direction"].ToString()),
 		        WindSpeed = wind["speed"].ToString(),
 		        LocationCity = location["city"].ToString(),
 		        LocationRegion = location["region"].ToString(),

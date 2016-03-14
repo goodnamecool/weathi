@@ -11,15 +11,17 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using Android.Content;
+using Android.Content.PM;
+using Android.Net;
 
 namespace Weathi
 {
-	[Activity (Label = "@string/ApplicationName" , MainLauncher = true, Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
+	[Activity (Label = "@string/ApplicationName", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait, Theme = "@android:style/Theme.Holo.Light.NoActionBar")]
 	public class MainActivity : Activity, ILocationListener
 	{
+		int currentHour = 0;
+		bool flag;
 		ProgressDialog progress;
-
-		string tag = "MainActivity";
 
 		TextView locationText;
 		TextView currentTemperatureText;
@@ -29,8 +31,17 @@ namespace Weathi
 		TextView humidityText;
 		TextView pressureText;
 		TextView visibilityText;
+		TextView highConditionText;
+		TextView lowConditionText;
+		TextView chillText;
+		TextView directionText;
+		TextView windSpeedText;
+
+		TextView addressText;
+
 		Button buttonAddress;
-		ListView listView;
+		Button buttonReload;
+		//ListView listView;
 
 		Weather weather = new Weather();
 
@@ -38,7 +49,7 @@ namespace Weathi
 		LocationManager locationManager;
 		string locationProvider;
 
-		protected async override void OnCreate(Bundle bundle)
+		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.Main);
@@ -51,12 +62,23 @@ namespace Weathi
 			humidityText = FindViewById<TextView> (Resource.Id.textHumidity);
 			pressureText = FindViewById<TextView> (Resource.Id.textPressure);
 			visibilityText = FindViewById<TextView> (Resource.Id.textVisibility);
+			highConditionText = FindViewById<TextView> (Resource.Id.txtHighTempCondition);
+			lowConditionText =  FindViewById<TextView> (Resource.Id.txtLowTempCondition);
+
+			chillText = FindViewById<TextView> (Resource.Id.textChill);
+			directionText = FindViewById<TextView> (Resource.Id.textDirection);
+			windSpeedText = FindViewById<TextView> (Resource.Id.textWindSpeed);
+
+			addressText = FindViewById<TextView> (Resource.Id.textAddress);
 
 			buttonAddress = FindViewById<Button> (Resource.Id.get_position);
+			buttonReload = FindViewById<Button> (Resource.Id.reloadButton);
 
-			listView = FindViewById<ListView>(Resource.Id.List);
+			//listView = FindViewById<ListView>(Resource.Id.List);
 				
 			buttonAddress.Click += AddressButton_OnClick;
+			buttonReload.Click += AddressButton_OnClick;
+
 			progress = new ProgressDialog (this);
 
 			Typeface tf = Typeface.CreateFromAsset(Assets,"Fonts/Genome-Thin.otf"); 
@@ -68,10 +90,18 @@ namespace Weathi
 			humidityText.Typeface = tf;
 			pressureText.Typeface = tf;
 			visibilityText.Typeface = tf;
+			highConditionText.Typeface = tf;
+			lowConditionText.Typeface = tf;
+			chillText.Typeface = tf;
+			directionText.Typeface = tf;
+			windSpeedText.Typeface = tf;
+			addressText.Typeface = tf;
+
+			buttonReload.Typeface = tf;
 
 			InitializeGPS ();
 
-			await FindLocation();
+			ProgressShow ();
 		}
 
 		void InitializeGPS ()
@@ -84,80 +114,149 @@ namespace Weathi
 			locationCriteria.PowerRequirement = Power.Low;
 			locationProvider = locationManager.GetBestProvider(locationCriteria, true);
 
-			Log.Debug(tag, "Starting location updates with " + locationProvider.ToString());
-
-			locationManager.RequestLocationUpdates (locationProvider, 2000, 1, this);
+			locationManager.RequestLocationUpdates(locationProvider, 2000, 1, this);
 		}
 
-		private async void AddressButton_OnClick (object sender, EventArgs e)
+		private void AddressButton_OnClick (object sender, EventArgs e)
+		{			
+			ProgressShow (true);
+		}
+
+		private void ProgressShow (bool isCancel = false)
 		{
-			
-			progress.SetTitle ("Obteniendo geolocalización");
+			progress.SetTitle ("Obteniendo la ubicación");
 			progress.SetMessage ("Por favor espere....");
 			progress.Indeterminate = true;
-			progress.SetButton ("Cancelar", new EventHandler<DialogClickEventArgs>((s, args) => progress.Dismiss () ) );
-			progress.Show ();
 
-			await FindLocation();
+			if (isCancel) 
+			{
+				progress.SetButton ("Cancelar", new EventHandler<DialogClickEventArgs>((s, args) => progress.Dismiss () ) );
+			}
+
+			progress.Show ();
+			flag = true;
 		}
 
 		private async Task FindLocation () 
-		{
+		{	
 			locationManager.RequestLocationUpdates(locationProvider, 0, 0, this);
 
 			if (currentLocation == null) 
 			{
-				Toast.MakeText (Application.Context, "No se puede determinar la ubicacion.", ToastLength.Short).Show ();
+				progress.Dismiss ();
+				//FindViewById<TextView> (Resource.Id.textError).Text = "No se puede determinar la ubicación.";
 				return;
 			} 
-			else 			
-			{
-				progress.Dismiss ();
-			}
 
 			Geocoder geocoder = new Geocoder(this);
-			IList<Address> addressList = await geocoder.GetFromLocationAsync(currentLocation.Latitude, currentLocation.Longitude, 10);
+			IList<Address> addressList = await geocoder.GetFromLocationAsync(currentLocation.Latitude, currentLocation.Longitude, 1);
 
 			Address address = addressList.FirstOrDefault();
 			if (address != null)
 			{
+				var countryCode = address.CountryCode;
+				var city = address.Locality;
+
 				StringBuilder deviceAddress = new StringBuilder();
 
 				for (int i = 0; i < address.MaxAddressLineIndex; i++)
 				{
-					deviceAddress.Append(address.GetAddressLine(i)).AppendLine(",");
+					deviceAddress.Append(address.GetAddressLine(i)).Append(",");
 				}
 
-				await ReverseGeocodeCurrentLocation ();
+				addressText.Text = deviceAddress.ToString();
+
+				await ReverseGeocodeCurrentLocation (city + "," + countryCode);
+
+				//Toast.MakeText (Application.Context, city + "," + countryCode, ToastLength.Long).Show ();
 			}
 			else
 			{
-				Toast.MakeText (Application.Context, "No se puede determinar la ubicacion.", ToastLength.Short).Show ();
+				FindViewById<TextView> (Resource.Id.textError).Text = "No se puede determinar la ubicación.";
+				FindViewById<LinearLayout> (Resource.Id.mainStackPanel).Visibility = Android.Views.ViewStates.Gone;
+				FindViewById<LinearLayout> (Resource.Id.errorStackPanel).Visibility = Android.Views.ViewStates.Visible;
 			}
 		}
 
-		private async Task ReverseGeocodeCurrentLocation()
+		private async Task ReverseGeocodeCurrentLocation(string city)
 		{		
 			var apiService = new ApiService();
-			weather = await apiService.GetForecastDaily("c");
+			weather = await apiService.GetForecastDaily(city,"c");
 
-			locationText.Text = weather.LocationCity + ", " + weather.LocationRegion;
-			currentTemperatureText.Text = weather.ConditionTemperature + "c";
-			currentConditionText.Text = weather.ConditionText;
-			sunriseText.Text = weather.AstronomySunrise;
-			sunsetText.Text = weather.AstronomySunset;
-			humidityText.Text = weather.AtmosphereHumidity + "%";
-			pressureText.Text = weather.AtmospherePressure + "mb";
-			visibilityText.Text = weather.AtmosphereVisibility + "km" ;
+			if (weather != null) {
+				locationText.Text = weather.LocationCity + ", " + weather.LocationRegion;
+				currentTemperatureText.Text = weather.ConditionTemperature + "c";
+				currentConditionText.Text = weather.ConditionText;
+				sunriseText.Text = weather.AstronomySunrise;
+				sunsetText.Text = weather.AstronomySunset;
+				humidityText.Text = weather.AtmosphereHumidity + "%";
+				pressureText.Text = weather.AtmospherePressure + "mb";
+				visibilityText.Text = weather.AtmosphereVisibility + "km";
 
+				highConditionText.Text = weather.Forecast [0].High + "c";
+				lowConditionText.Text = weather.Forecast [0].Low + "c";
 
-			listView.Adapter = new ForecastItemAdapter(this, weather.Forecast);
+				chillText.Text = weather.WindChill + "c";
+				directionText.Text = CalculateDirection (weather.WindDirection);
+				windSpeedText.Text = weather.WindSpeed + "km/h";
+				//listView.Adapter = new ForecastItemAdapter(this, weather.Forecast);
+				FindViewById<LinearLayout> (Resource.Id.mainStackPanel).Visibility = Android.Views.ViewStates.Visible;
+				FindViewById<LinearLayout> (Resource.Id.errorStackPanel).Visibility = Android.Views.ViewStates.Gone;
+			} 
+			else
+			{
+				FindViewById<TextView> (Resource.Id.textError).Text = "No se puede determinar los datos de la ubicación en la que te encuentras actualmente, revisa tu conexión a internet.";
+				FindViewById<LinearLayout> (Resource.Id.mainStackPanel).Visibility = Android.Views.ViewStates.Gone;
+				FindViewById<LinearLayout> (Resource.Id.errorStackPanel).Visibility = Android.Views.ViewStates.Visible;
+			}	
+
+		}
+
+		private string CalculateDirection (int windDirection)
+		{
+			var result = "N/A";
+
+			if (windDirection == 0) 
+			{
+				result = "N";
+			}
+			if (windDirection > 0 && windDirection < 90) 
+			{
+				result = "NE";
+			}
+			if (windDirection == 90) 
+			{
+				result = "NE";
+			}
+			if (windDirection > 90 && windDirection < 180) 
+			{
+				result = "SE";
+			}
+			if (windDirection == 180) 
+			{
+				result = "S";
+			}
+			if (windDirection > 180 && windDirection < 270) 
+			{
+				result = "SO";
+			}
+			if (windDirection == 270) 
+			{
+				result = "O";
+			}
+			if (windDirection > 270 && windDirection < 360) 
+			{
+				result = "NO";
+			}
+
+			return result;
 		}
 
 		protected override void OnResume ()
 		{
 			base.OnResume (); 
 			locationManager.RequestLocationUpdates(locationProvider, 0, 0, this);
+			CheckConnection ();
 		}
 
 		protected override void OnPause()
@@ -167,23 +266,33 @@ namespace Weathi
 		}
 
 
-		public void OnLocationChanged (Android.Locations.Location location)
+		public async void OnLocationChanged (Android.Locations.Location location)
 		{
-			Log.Debug (tag, "Location changed");
-
 			currentLocation = location;
 			if (currentLocation == null)
 			{
-				Toast.MakeText(this , "No se puede determinar la ubicacion.", ToastLength.Long).Show();
+				FindViewById<TextView> (Resource.Id.textError).Text = "Verifique que este activado el gps para obtener tu ubicación.";
+				FindViewById<LinearLayout> (Resource.Id.errorStackPanel).Visibility = Android.Views.ViewStates.Visible;
+				FindViewById<LinearLayout> (Resource.Id.mainStackPanel).Visibility = Android.Views.ViewStates.Gone;
 			}
 			else
 			{
-				progress.Dismiss ();
+				if (currentHour != DateTime.Now.Hour || flag)
+				{		
+					currentHour = DateTime.Now.Hour;
+					flag = false;
+					progress.Dismiss ();
+					await FindLocation();
+				}
 			}
 		}
 
 		public void OnProviderDisabled (string provider)
 		{
+			progress.Dismiss ();
+			FindViewById<TextView> (Resource.Id.textError).Text = "Verifique que este activado el gps para obtener tu ubicación.";
+			FindViewById<LinearLayout> (Resource.Id.errorStackPanel).Visibility = Android.Views.ViewStates.Visible;
+			FindViewById<LinearLayout> (Resource.Id.mainStackPanel).Visibility = Android.Views.ViewStates.Gone;
 		}
 
 		public void OnProviderEnabled (string provider)
@@ -192,6 +301,27 @@ namespace Weathi
 
 		public void OnStatusChanged (string provider, Availability status, Bundle extras)
 		{
+		}
+
+		void CheckConnection ()
+		{
+			var connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+
+			var activeConnection = connectivityManager.ActiveNetworkInfo;
+
+			if (activeConnection == null) {
+//				var builder = new Android.Support.V7.App.AlertDialog.Builder (this);
+//				builder.SetIconAttribute (Android.Resource.Attribute.AlertDialogIcon);
+//				builder.SetTitle ("No hay conexión a internet");
+//				builder.SetMessage ("¿Desea continuar?");
+//				builder.SetPositiveButton ("Si", delegate { });
+//				builder.SetNegativeButton ("No", delegate { Finish(); });
+//				builder.Show ();
+				FindViewById<TextView> (Resource.Id.textError).Text = "No existe conexión a internet para obtener la información del clima donde estas.";
+				FindViewById<LinearLayout> (Resource.Id.errorStackPanel).Visibility = Android.Views.ViewStates.Visible;
+				FindViewById<LinearLayout> (Resource.Id.mainStackPanel).Visibility = Android.Views.ViewStates.Gone;
+			} 
+
 		}
 	}
 }

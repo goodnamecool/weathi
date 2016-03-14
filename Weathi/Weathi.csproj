@@ -89,9 +89,16 @@
     <AndroidResource Include="Resources\drawable\humidity.png" />
     <AndroidResource Include="Resources\drawable\visibility.png" />
     <AndroidResource Include="Resources\drawable\pressure.png" />
+    <AndroidResource Include="Resources\drawable\blueUpArrow.png" />
+    <AndroidResource Include="Resources\drawable\redDownArrow.png" />
+    <AndroidResource Include="Resources\drawable\refresh.png" />
+    <AndroidResource Include="Resources\drawable\compass.png" />
+    <AndroidResource Include="Resources\drawable\wind.png" />
+    <AndroidResource Include="Resources\drawable\chill.png" />
+    <AndroidResource Include="Resources\drawable\background.jpg" />
+    <AndroidResource Include="Resources\drawable\errorCloud.png" />
     <AndroidResource Include="Resources\drawable\sunrise.png" />
     <AndroidResource Include="Resources\drawable\sunset.png" />
-    <AndroidResource Include="Resources\drawable\splash_logo2.png" />
     <AndroidResource Include="Resources\drawable\splash_logo.png" />
     <AndroidResource Include="Resources\drawable\iconWeathi.png" />
   </ItemGroup>
