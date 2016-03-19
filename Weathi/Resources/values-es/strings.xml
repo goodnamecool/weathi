@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="WindLabel">Viento</string>
+    <string name="DirectionLabel">Dirección</string>
+    <string name="PressureLabel">Presión</string>
+    <string name="VisibilityLabel">Visibilidad</string>
+    <string name="HumidityLabel">Humedad</string>
+    <string name="WindChillLabel">Sensación térmica</string>
+    <string name="ApplicationName">Weathi</string>
+    <string name="RefreshButton">Reintentar</string>
+    <string name="SettingsTitle">Configuración</string>
+    <string name="UnitsLabel">Unidad de temperatura</string>
+    <string name="NoConectionMessage">No existe conexión a internet para obtener la información del clima donde estas.</string>
+    <string name="NoGpsMessage">Verifique que este activado el gps para obtener tu ubicación.</string>
+    <string name="NotFoundMessage">No se puede determinar los datos de la ubicación en la que te encuentras actualmente, revisa tu conexión a internet.</string>
+    <string name="NotLocationMessage">No se puede determinar la ubicación.</string>
+    <string name="GetLocationTitle">obteniendo ubicación</string>
+    <string name="PleaseWaitMessage">Por favor espere....</string>
+    <string name="CancelButton">Cancelar</string>
+    <string name="NorthLabel">N</string>
+    <string name="NorthEastLabel">NE</string>
+    <string name="NorthWestLabel">NO</string>
+    <string name="SouthLabel">S</string>
+    <string name="SouthEastLabel">SE</string>
+    <string name="SouthWestLabel">SO</string>
+    <string name="WestLabel">O</string>
+    <string name="EastLabel">E</string>
+</resources>

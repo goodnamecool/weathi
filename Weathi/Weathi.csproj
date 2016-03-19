@@ -57,6 +57,8 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Data" />
+    <Reference Include="Mono.Data.Sqlite" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -67,6 +69,10 @@
     <Compile Include="Weather.cs" />
     <Compile Include="Forecast.cs" />
     <Compile Include="ForecastItemAdapter.cs" />
+    <Compile Include="SettingsActivity.cs" />
+    <Compile Include="SQLite.cs" />
+    <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="DBHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -86,26 +92,31 @@
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\strings.xml" />
     <AndroidResource Include="Resources\layout\ForecastItem.xml" />
-    <AndroidResource Include="Resources\drawable\humidity.png" />
-    <AndroidResource Include="Resources\drawable\visibility.png" />
-    <AndroidResource Include="Resources\drawable\pressure.png" />
-    <AndroidResource Include="Resources\drawable\blueUpArrow.png" />
-    <AndroidResource Include="Resources\drawable\redDownArrow.png" />
-    <AndroidResource Include="Resources\drawable\refresh.png" />
-    <AndroidResource Include="Resources\drawable\compass.png" />
-    <AndroidResource Include="Resources\drawable\wind.png" />
-    <AndroidResource Include="Resources\drawable\chill.png" />
-    <AndroidResource Include="Resources\drawable\background.jpg" />
     <AndroidResource Include="Resources\drawable\errorCloud.png" />
-    <AndroidResource Include="Resources\drawable\sunrise.png" />
-    <AndroidResource Include="Resources\drawable\sunset.png" />
     <AndroidResource Include="Resources\drawable\splash_logo.png" />
     <AndroidResource Include="Resources\drawable\iconWeathi.png" />
+    <AndroidResource Include="Resources\layout\Settings.axml" />
+    <AndroidResource Include="Resources\drawable\rounded_edge.xml" />
+    <AndroidResource Include="Resources\drawable\options.png" />
+    <AndroidResource Include="Resources\drawable\refresh.png" />
+    <AndroidResource Include="Resources\drawable\chill.png" />
+    <AndroidResource Include="Resources\drawable\compass.png" />
+    <AndroidResource Include="Resources\drawable\wind.png" />
+    <AndroidResource Include="Resources\drawable\humidity.png" />
+    <AndroidResource Include="Resources\drawable\pressure.png" />
+    <AndroidResource Include="Resources\drawable\visibility.png" />
+    <AndroidResource Include="Resources\drawable\uparrow.png" />
+    <AndroidResource Include="Resources\drawable\downarrow.png" />
+    <AndroidResource Include="Resources\drawable\pin.png" />
+    <AndroidResource Include="Resources\drawable\background.png" />
+    <AndroidResource Include="Resources\drawable\background2.png" />
+    <AndroidResource Include="Resources\values-es\strings.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Assets\Fonts\" />
+    <Folder Include="Resources\values-es\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Fonts\Genome-Thin.otf" />

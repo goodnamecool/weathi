@@ -1,9 +1,14 @@
 using System.Collections.Generic;
+using SQLite;
 
 namespace Weathi
 {
     public class Weather
     {
+		[PrimaryKey, AutoIncrement]
+		public int Id { get; set; }
+
+		public string Unit { get; set; }
         public string LocationCity { get; set; }
         public string LocationRegion { get; set; }
         public string LocationCountry { get; set; }

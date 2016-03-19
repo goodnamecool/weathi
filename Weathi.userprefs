@@ -1,9 +1,26 @@
-﻿<Properties StartupItem="Weathi\Weathi.csproj" RefactoringSettings.EnableRefactorings="True">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="Android.192.168.65.101:5555" />
-  <MonoDevelop.Ide.Workbench />
+﻿<Properties StartupItem="Weathi/Weathi.csproj" RefactoringSettings.EnableRefactorings="True">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.58.101:5555" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Weathi/SplashActivity.cs">
+    <Files>
+      <File FileName="Weathi/MainActivity.cs" Line="348" Column="40" NotebookId="1" />
+      <File FileName="Weathi/APIService.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Weathi/SplashActivity.cs" Line="31" Column="1" NotebookId="1" />
+    </Files>
+    <FloatingWindows>
+      <FloatingWindow WindowId="1" X="1920" Y="303" Width="1280" Height="751">
+        <Files>
+          <File FileName="Weathi/Resources/values/strings.xml" Line="26" Column="40" />
+          <File FileName="Weathi/Resources/values-es/strings.xml" Line="23" Column="41" />
+        </Files>
+      </FloatingWindow>
+    </FloatingWindows>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\hugh_\Documents\Projects\Weathi\Weathi\APIService.cs" line="132" column="1" />
+      <Breakpoint file="/Users/hugofernandez/goodnamecool/weathi.git/Weathi/MainActivity.cs" line="164" column="1" />
+      <Breakpoint file="/Users/hugofernandez/goodnamecool/weathi.git/Weathi/MainActivity.cs" line="182" column="1" />
+      <Breakpoint file="/Users/hugofernandez/goodnamecool/weathi.git/Weathi/MainActivity.cs" line="226" column="1" />
+      <Breakpoint file="/Users/hugofernandez/goodnamecool/weathi.git/Weathi/SplashActivity.cs" line="31" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

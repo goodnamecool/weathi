@@ -10,10 +10,13 @@ namespace Weathi
 	public class ApiService
 	{
 	    readonly HttpClient client;
+		readonly DBHelper dbHelper;
 
 		public ApiService ()
 		{
 		    client = new HttpClient { MaxResponseContentBufferSize = 256000 };
+			dbHelper = new DBHelper ();
+			dbHelper.createDatabase ();
 		}
 
 		public async Task<Weather> GetForecastDaily(string city, string unit)
@@ -47,25 +50,27 @@ namespace Weathi
 			var condition = json["query"]["results"]["channel"]["item"]["condition"];
 			var wind = json["query"]["results"]["channel"]["wind"];
 			var astronomy = json["query"]["results"]["channel"]["astronomy"];
+			var unit = json["query"]["results"]["channel"]["units"];
 
 		    var weather = new Weather
 		    {
+				Unit = unit["temperature"].ToString(),
 		        AstronomySunrise = astronomy["sunrise"].ToString(),
 		        AstronomySunset = astronomy["sunset"].ToString(),
-		        WindChill = wind["chill"].ToString(),
+				WindChill = wind["chill"].ToString() + unit["temperature"].ToString(),
 				WindDirection = int.Parse(wind["direction"].ToString()),
-		        WindSpeed = wind["speed"].ToString(),
+				WindSpeed = wind["speed"].ToString() + unit["speed"].ToString(),
 		        LocationCity = location["city"].ToString(),
 		        LocationRegion = location["region"].ToString(),
 		        LocationCountry = location["country"].ToString(),
 		        ConditionCode = condition["code"].ToString(),
 		        ConditionDate = condition["date"].ToString(),
-		        ConditionTemperature = condition["temp"].ToString(),
+				ConditionTemperature = condition["temp"].ToString() + unit["temperature"].ToString(),
 		        ConditionText = condition["text"].ToString(),
-		        AtmosphereHumidity = atmosphere["humidity"].ToString(),
-		        AtmospherePressure = atmosphere["pressure"].ToString(),
+		        AtmosphereHumidity = atmosphere["humidity"].ToString() + "%",
+				AtmospherePressure = atmosphere["pressure"].ToString() + unit["pressure"].ToString(),
 		        AtmosphereRising = atmosphere["rising"].ToString(),
-		        AtmosphereVisibility = atmosphere["visibility"].ToString(),
+				AtmosphereVisibility = atmosphere["visibility"].ToString() + unit["distance"].ToString(),
 		        Forecast = new List<Forecast>()
 		    };
 
@@ -76,8 +81,8 @@ namespace Weathi
 					Code = item["code"].ToString(),
 					Date = item["date"].ToString() ,
 					Day = item["day"].ToString(),
-					High = item["high"].ToString(),
-					Low = item["low"].ToString(),
+					High = item["high"].ToString() + unit["temperature"].ToString(),
+					Low = item["low"].ToString() + unit["temperature"].ToString(),
 					Text = item["text"].ToString()
 				});
 			}

@@ -1,5 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
+    <string name="WindLabel">Wind</string>
+    <string name="DirectionLabel">Direction</string>
+    <string name="PressureLabel">Pressure</string>
+    <string name="VisibilityLabel">Visibility</string>
+    <string name="HumidityLabel">Humidity</string>
+    <string name="WindChillLabel">Wind Chill</string>
     <string name="ApplicationName">Weathi</string>
+    <string name="RefreshButton">Retrying</string>
+    <string name="SettingsTitle">Settings</string>
+    <string name="UnitsLabel">Unit of temperature</string>
+    <string name="NoConectionMessage">There is no internet connection to get weather information where you are.</string>
+    <string name="NoGpsMessage">Verify that this enabled the GPS to get your location.</string>
+    <string name="NotFoundMessage">Unable to determine location data in which you are currently located, check your internet connection.</string>
+    <string name="NotLocationMessage">Unable to determinate location.</string>
+    <string name="GetLocationTitle">Getting location</string>
+    <string name="PleaseWaitMessage">Please wait....</string>
+    <string name="CancelButton">Cancel</string>
+    <string name="NorthLabel">N</string>
+    <string name="NorthEastLabel">NE</string>
+    <string name="NorthWestLabel">NW</string>
+    <string name="SouthLabel">S</string>
+    <string name="SouthEastLabel">SE</string>
+    <string name="SouthWestLabel">SW</string>
+    <string name="WestLabel">W</string>
+    <string name="EastLabel">E</string>
+
 </resources>

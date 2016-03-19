@@ -80,10 +80,10 @@ public class MonoPackageManager {
 class MonoPackageManager_Resources {
 	public static final String[] Assemblies = new String[]{
 		"Weathi.dll",
-		"Newtonsoft.Json.dll",
-		"Xamarin.Android.Support.v13.dll",
 		"Xamarin.Android.Support.v4.dll",
+		"Xamarin.Android.Support.v13.dll",
 		"Xamarin.Android.Support.v7.AppCompat.dll",
+		"Newtonsoft.Json.dll",
 		"System.ServiceModel.Internals.dll",
 	};
 	public static final String[] Dependencies = new String[]{

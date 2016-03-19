@@ -10,6 +10,10 @@ Weathi.ForecastItemAdapter, Weathi;md5d25377b6b0249288961608679e489bf1.ForecastI
 Weathi.ForecastItemAdapter, Weathi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5d25377b6b0249288961608679e489bf1.ForecastItemAdapter
 Weathi.ForecastItemAdapter;md5d25377b6b0249288961608679e489bf1.ForecastItemAdapter
 weathi.ForecastItemAdapter;md5d25377b6b0249288961608679e489bf1.ForecastItemAdapter
+Weathi.SettingsActivity, Weathi;md5d25377b6b0249288961608679e489bf1.SettingsActivity
+Weathi.SettingsActivity, Weathi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5d25377b6b0249288961608679e489bf1.SettingsActivity
+Weathi.SettingsActivity;md5d25377b6b0249288961608679e489bf1.SettingsActivity
+weathi.SettingsActivity;md5d25377b6b0249288961608679e489bf1.SettingsActivity
 Android.Support.V4.View.ViewPager/IOnPageChangeListenerImplementor, Xamarin.Android.Support.v4;mono.android.support.v4.view.ViewPager_OnPageChangeListenerImplementor
 Android.Support.V4.View.ViewPager+IOnPageChangeListenerImplementor, Xamarin.Android.Support.v4, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;mono.android.support.v4.view.ViewPager_OnPageChangeListenerImplementor
 Android.Support.V4.View.ViewPager.IOnPageChangeListenerImplementor;mono.android.support.v4.view.ViewPager_OnPageChangeListenerImplementor
