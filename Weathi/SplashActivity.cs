@@ -2,8 +2,6 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Support.V7.App;
-using Android.Util;
 
 namespace Weathi
 {
@@ -27,11 +25,25 @@ namespace Weathi
 
 			startupWork.ContinueWith(t =>
 				{
-					StartActivity(new Intent(Application.Context, typeof (MainActivity)));
+
+                    if (!IsFirstTime())
+                    {
+                        StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+                    }
+                    else
+                    {
+                        StartActivity(new Intent(Application.Context, typeof(FirstTimeActivity)));
+                    }
+                   
 				}, TaskScheduler.FromCurrentSynchronizationContext());
 
 			startupWork.Start();
 		}
-	}
+
+        private bool IsFirstTime()
+        {
+            return Helpers.WeatherHelpers.CheckIsFirstTime();
+        }
+    }
 }
 

@@ -4,19 +4,13 @@ package md5d25377b6b0249288961608679e489bf1;
 public class MainActivity
 	extends android.app.Activity
 	implements
-		mono.android.IGCUserPeer,
-		android.location.LocationListener
+		mono.android.IGCUserPeer
 {
-	static final String __md_methods;
+/** @hide */
+	public static final String __md_methods;
 	static {
 		__md_methods = 
 			"n_onCreate:(Landroid/os/Bundle;)V:GetOnCreate_Landroid_os_Bundle_Handler\n" +
-			"n_onResume:()V:GetOnResumeHandler\n" +
-			"n_onPause:()V:GetOnPauseHandler\n" +
-			"n_onLocationChanged:(Landroid/location/Location;)V:GetOnLocationChanged_Landroid_location_Location_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
-			"n_onProviderDisabled:(Ljava/lang/String;)V:GetOnProviderDisabled_Ljava_lang_String_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
-			"n_onProviderEnabled:(Ljava/lang/String;)V:GetOnProviderEnabled_Ljava_lang_String_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
-			"n_onStatusChanged:(Ljava/lang/String;ILandroid/os/Bundle;)V:GetOnStatusChanged_Ljava_lang_String_ILandroid_os_Bundle_Handler:Android.Locations.ILocationListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\n" +
 			"";
 		mono.android.Runtime.register ("Weathi.MainActivity, Weathi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", MainActivity.class, __md_methods);
 	}
@@ -37,55 +31,7 @@ public class MainActivity
 
 	private native void n_onCreate (android.os.Bundle p0);
 
-
-	public void onResume ()
-	{
-		n_onResume ();
-	}
-
-	private native void n_onResume ();
-
-
-	public void onPause ()
-	{
-		n_onPause ();
-	}
-
-	private native void n_onPause ();
-
-
-	public void onLocationChanged (android.location.Location p0)
-	{
-		n_onLocationChanged (p0);
-	}
-
-	private native void n_onLocationChanged (android.location.Location p0);
-
-
-	public void onProviderDisabled (java.lang.String p0)
-	{
-		n_onProviderDisabled (p0);
-	}
-
-	private native void n_onProviderDisabled (java.lang.String p0);
-
-
-	public void onProviderEnabled (java.lang.String p0)
-	{
-		n_onProviderEnabled (p0);
-	}
-
-	private native void n_onProviderEnabled (java.lang.String p0);
-
-
-	public void onStatusChanged (java.lang.String p0, int p1, android.os.Bundle p2)
-	{
-		n_onStatusChanged (p0, p1, p2);
-	}
-
-	private native void n_onStatusChanged (java.lang.String p0, int p1, android.os.Bundle p2);
-
-	java.util.ArrayList refList;
+	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)
 	{
 		if (refList == null)

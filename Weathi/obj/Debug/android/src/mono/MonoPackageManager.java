@@ -17,10 +17,20 @@ public class MonoPackageManager {
 	static Object lock = new Object ();
 	static boolean initialized;
 
+	static android.content.Context Context;
+
 	public static void LoadApplication (Context context, ApplicationInfo runtimePackage, String[] apks)
 	{
 		synchronized (lock) {
+			if (context instanceof android.app.Application) {
+				Context = context;
+			}
 			if (!initialized) {
+				android.content.IntentFilter timezoneChangedFilter  = new android.content.IntentFilter (
+						android.content.Intent.ACTION_TIMEZONE_CHANGED
+				);
+				context.registerReceiver (new mono.android.app.NotifyTimeZoneChanges (), timezoneChangedFilter);
+				
 				System.loadLibrary("monodroid");
 				Locale locale       = Locale.getDefault ();
 				String language     = locale.getLanguage () + "-" + locale.getCountry ();
@@ -44,9 +54,17 @@ public class MonoPackageManager {
 							"Android/data/" + context.getPackageName () + "/files/.__override__").getAbsolutePath (),
 						MonoPackageManager_Resources.Assemblies,
 						context.getPackageName ());
+				
+				mono.android.app.ApplicationRegistration.registerApplications ();
+				
 				initialized = true;
 			}
 		}
+	}
+
+	public static void setContext (Context context)
+	{
+		// Ignore; vestigial
 	}
 
 	static String getNativeLibraryPath (Context context)
@@ -79,12 +97,31 @@ public class MonoPackageManager {
 
 class MonoPackageManager_Resources {
 	public static final String[] Assemblies = new String[]{
+		/* We need to ensure that "Weathi.dll" comes first in this list. */
 		"Weathi.dll",
-		"Xamarin.Android.Support.v4.dll",
-		"Xamarin.Android.Support.v13.dll",
-		"Xamarin.Android.Support.v7.AppCompat.dll",
 		"Newtonsoft.Json.dll",
-		"System.ServiceModel.Internals.dll",
+		"System.Threading.dll",
+		"System.Runtime.dll",
+		"System.Collections.dll",
+		"System.Collections.Concurrent.dll",
+		"System.Diagnostics.Debug.dll",
+		"System.Reflection.dll",
+		"System.Linq.dll",
+		"System.Runtime.InteropServices.dll",
+		"System.Runtime.Extensions.dll",
+		"System.Reflection.Extensions.dll",
+		"System.IO.dll",
+		"System.Threading.Tasks.dll",
+		"System.Xml.XDocument.dll",
+		"System.Globalization.dll",
+		"System.Runtime.Serialization.Primitives.dll",
+		"System.Linq.Expressions.dll",
+		"System.Dynamic.Runtime.dll",
+		"System.ObjectModel.dll",
+		"System.Text.RegularExpressions.dll",
+		"System.Xml.ReaderWriter.dll",
+		"System.Text.Encoding.dll",
+		"System.Text.Encoding.Extensions.dll",
 	};
 	public static final String[] Dependencies = new String[]{
 	};

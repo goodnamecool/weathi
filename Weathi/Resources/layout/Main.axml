@@ -390,10 +390,10 @@
             android:gravity="center_horizontal"
             android:textColor="@color/textblockColor" />
     </LinearLayout>
-<!--    <ListView
+    <ListView
         android:id="@+id/List"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp" />-->
+        android:paddingRight="20dp" />
 </LinearLayout>
