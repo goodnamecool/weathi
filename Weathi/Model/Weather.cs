@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using SQLite;
-using Weathi.Model;
 
 namespace Weathi.Model
 {

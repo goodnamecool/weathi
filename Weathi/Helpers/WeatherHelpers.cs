@@ -49,7 +49,7 @@ namespace Weathi.Helpers
             var dbhelper = new SqliteService();
 
             dbhelper.CreateDatabase();
-            return dbhelper.FindNumberRecordWeathers() == 0 ? true : false ;
+            return dbhelper.FindNumberRecordWeathers() == 0 ;
         }
 
         

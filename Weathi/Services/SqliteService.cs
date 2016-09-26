@@ -1,5 +1,4 @@
-﻿using System;
-using SQLite;
+﻿using SQLite;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +8,13 @@ namespace Weathi.Services
 {
 	public class SqliteService
 	{
-		public string path;
+		public string Path;
 
 		public SqliteService ()
 		{
 			// create DB path
 			var docsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-			path = System.IO.Path.Combine(docsFolder, "db_weathi.db");
+			Path = System.IO.Path.Combine(docsFolder, "db_weathi.db");
 		}
 
 		public string CreateDatabase()
@@ -24,7 +23,7 @@ namespace Weathi.Services
 			try
 			{
 				//isExists= System.IO.Directory.Exists(path);
-				var connection = new SQLiteConnection(path);
+				var connection = new SQLiteConnection(Path);
 				connection.CreateTable<Weather>();
 				return "Database created";				
 			}
@@ -38,7 +37,7 @@ namespace Weathi.Services
 		{
 			try
 			{
-				var db = new SQLiteConnection(path);
+				var db = new SQLiteConnection(Path);
 
 				db.Insert(data);
 
@@ -54,7 +53,7 @@ namespace Weathi.Services
 		{
 			try
 			{
-				var db = new SQLiteConnection(path);
+				var db = new SQLiteConnection(Path);
 
 				db.Update(data);
 
@@ -70,7 +69,7 @@ namespace Weathi.Services
 		{
 			try
 			{
-				var db = new SQLiteConnection(path);
+				var db = new SQLiteConnection(Path);
 				if (db.InsertAll(data) != 0)
 					db.UpdateAll(data);
 				return "List of data inserted or updated";
@@ -85,7 +84,7 @@ namespace Weathi.Services
 		{
 			try
 			{
-				var db = new SQLiteConnection(path);
+				var db = new SQLiteConnection(Path);
 				// this counts all records in the database, it can be slow depending on the size of the database
 				var count = db.ExecuteScalar<int>("SELECT Count(*) FROM Weather");
 
@@ -100,7 +99,7 @@ namespace Weathi.Services
 		//retrieve a specific user by querying against their first name
 		public Weather GetWeather(int id)
 		{
-			using (var database = new SQLiteConnection(path))
+			using (var database = new SQLiteConnection(Path))
 			{
 				return database.Table<Weather>().FirstOrDefault(u => u.Id == id);				
 			}
@@ -108,7 +107,7 @@ namespace Weathi.Services
 
 		public IList<Weather> GetWeathers()
 		{
-			using (var database = new SQLiteConnection(path))
+			using (var database = new SQLiteConnection(Path))
 			{
 				return database.Table<Weather>().ToList();
 			}
@@ -117,7 +116,7 @@ namespace Weathi.Services
 
 		public string DeleteEvent(Weather data)
 		{
-			using (var database = new SQLiteConnection(path))
+			using (var database = new SQLiteConnection(Path))
 			{
 				try
 				{

@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.Graphics;
 using Weathi.Model;
 
 namespace Weathi
 {
 	public class ForecastItemAdapter : BaseAdapter<Forecast>
 	{
-		List<Forecast> items;
-		Activity context;
+	    readonly List<Forecast> items;
+	    readonly Activity context;
 
-		public ForecastItemAdapter (Activity context, List<Forecast> items): base()
+		public ForecastItemAdapter (Activity context, List<Forecast> items)
 		{
 			this.context = context;
 			this.items = items;
@@ -50,7 +43,7 @@ namespace Weathi
 			view.FindViewById<TextView>(Resource.Id.txtDay).Text = item.Day;
 			view.FindViewById<TextView>(Resource.Id.txtHigh).Text = item.High;
 			view.FindViewById<TextView>(Resource.Id.txtLow).Text = item.Low;
-			view.FindViewById<ImageView>(Resource.Id.Image).SetImageResource(item.ResourceID);
+			view.FindViewById<ImageView>(Resource.Id.Image).SetImageResource(item.ResourceId);
 
 			return view;
 		}

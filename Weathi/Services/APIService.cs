@@ -11,7 +11,7 @@ namespace Weathi.Services
 	public class ApiService
 	{
 	    readonly HttpClient client;
-        SqliteService dbHelper;
+	    readonly SqliteService dbHelper;
 
         public ApiService ()
 		{
@@ -37,13 +37,13 @@ namespace Weathi.Services
                     //obtener el ultimo pronostico
 					return FillForecast(JObject.Parse(content));
 				}
-			} 
-			catch (Exception) 
+			}
+			catch (Exception)
 			{
-				
+			    // ignored
 			}
 
-			return null;
+		    return null;
 		}
 
         private void SaveWeather(JObject json)
@@ -60,25 +60,25 @@ namespace Weathi.Services
                 Unit = unit["temperature"].ToString(),
                 AstronomySunrise = astronomy["sunrise"].ToString(),
                 AstronomySunset = astronomy["sunset"].ToString(),
-                WindChill = wind["chill"].ToString() + unit["temperature"].ToString(),
+                WindChill = wind["chill"] + unit["temperature"].ToString(),
                 WindDirection = int.Parse(wind["direction"].ToString()),
-                WindSpeed = wind["speed"].ToString() + unit["speed"].ToString(),
+                WindSpeed = wind["speed"] + unit["speed"].ToString(),
                 LocationCity = location["city"].ToString(),
                 LocationRegion = location["region"].ToString(),
                 LocationCountry = location["country"].ToString(),
                 ConditionCode = condition["code"].ToString(),
                 ConditionDate = condition["date"].ToString(),
-                ConditionTemperature = condition["temp"].ToString() + unit["temperature"].ToString(),
+                ConditionTemperature = condition["temp"] + unit["temperature"].ToString(),
                 ConditionText = condition["text"].ToString(),
-                AtmosphereHumidity = atmosphere["humidity"].ToString() + "%",
-                AtmospherePressure = atmosphere["pressure"].ToString() + unit["pressure"].ToString(),
+                AtmosphereHumidity = atmosphere["humidity"] + "%",
+                AtmospherePressure = atmosphere["pressure"] + unit["pressure"].ToString(),
                 AtmosphereRising = atmosphere["rising"].ToString(),
-                AtmosphereVisibility = atmosphere["visibility"].ToString() + unit["distance"].ToString()
+                AtmosphereVisibility = atmosphere["visibility"] + unit["distance"].ToString()
             };
 
             var weathers = dbHelper.GetWeathers();
 
-            if (weathers.Where(x => x.LocationCity == location["city"].ToString()).Any())
+            if (weathers.Any(x => x.LocationCity == location["city"].ToString()))
             {
                 dbHelper.UpdateData(weather);
             }
@@ -103,8 +103,8 @@ namespace Weathi.Services
                     Code = item["code"].ToString(),
                     Date = item["date"].ToString(),
                     Day = item["day"].ToString(),
-                    High = item["high"].ToString() + unit["temperature"].ToString(),
-                    Low = item["low"].ToString() + unit["temperature"].ToString(),
+                    High = item["high"] + unit["temperature"].ToString(),
+                    Low = item["low"] + unit["temperature"].ToString(),
                     Text = item["text"].ToString()
                 });
             }

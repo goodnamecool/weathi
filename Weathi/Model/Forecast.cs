@@ -8,7 +8,7 @@
 		public string High { get; set; }
 		public string Low { get; set; }
 		public string Text { get; set; }
-		public int ResourceID { get; set;}
+		public int ResourceId { get; set;}
 	}
 }
 
